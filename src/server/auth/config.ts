@@ -1,5 +1,4 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { log } from "console";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 // import DiscordProvider from "next-auth/providers/discord";
@@ -68,7 +67,7 @@ export const authConfig = {
             name: user.name,
           };
         } catch (error) {
-          log(error);
+          console.log(error);
           return null;
         }
       },

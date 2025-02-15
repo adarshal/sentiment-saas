@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import UploadVideo from "./UploadVideo";
+import UploadVideo from "../uploadvideo";
 
 const EMOTION_EMOJI: Record<string, string> = {
   anger: "😡",
@@ -38,10 +38,83 @@ export type Analysis = {
 };
 
 export function Inference({ quota }: InferenceProps) {
-  const [analysis, setAnalysis] = useState<Analysis | null>();
-
+  const [analysis, setAnalysis] = useState<Analysis | null>({
+   
+    "analysis": {
+      "utterances": [
+        {
+          "start_time": 0.5,
+          "end_time": 3.2,
+          "text": "I am feeling really great today!",
+          "emotions": [
+            { "label": "joy", "confidence": 0.85 },
+            { "label": "neutral", "confidence": 0.10 }
+          ],
+          "sentiments": [
+            { "label": "positive", "confidence": 0.90 }
+          ]
+        },
+        {
+          "start_time": 4.0,
+          "end_time": 6.8,
+          "text": "I am a little bit worried about the test tomorrow.",
+          "emotions": [
+            { "label": "fear", "confidence": 0.75 },
+            { "label": "neutral", "confidence": 0.20 }
+          ],
+          "sentiments": [
+            { "label": "negative", "confidence": 0.80 }
+          ]
+        },
+        {
+          "start_time": 7.2,
+          "end_time": 9.5,
+          "text": "The weather is okay, nothing special.",
+          "emotions": [
+            { "label": "neutral", "confidence": 0.80 }
+          ],
+          "sentiments": [
+            { "label": "neutral", "confidence": 0.85 }
+          ]
+        },
+        {
+          "start_time": 10.0,
+          "end_time": 13.0,
+          "text": "Ugh, this food tastes terrible!",
+          "emotions": [
+            { "label": "disgust", "confidence": 0.88 }
+          ],
+          "sentiments": [
+            { "label": "negative", "confidence": 0.90 }
+          ]
+        },
+        {
+          "start_time": 14.2,
+          "end_time": 16.5,
+          "text": "Wow! That was amazing!",
+          "emotions": [
+            { "label": "surprise", "confidence": 0.92 },
+            { "label": "joy", "confidence": 0.70 }
+          ],
+          "sentiments": [
+            { "label": "positive", "confidence": 0.95 }
+          ]
+        }
+      ]
+    }
+});
   const getAverageScores = () => {
-    if (!analysis?.analysis.utterances.length) return null;
+    if (!analysis?.analysis.utterances.length) return {
+        "topEmotion": {
+          "label": "joy",
+          "confidence": 0.775
+        },
+        "topSentiment": {
+          "label": "positive",
+          "confidence": 0.925
+        }
+      }
+      ;
 
     // Aggregate all the scores
     const emotionScores: Record<string, number[]> = {};
